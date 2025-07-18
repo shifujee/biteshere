@@ -1,0 +1,216 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - Bite Share</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#000000',
+            secondary: '#ffffff',
+            text: '#000000',
+            background: '#ffffff',
+            border: '#e5e5e5',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-background text-text min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold text-black">Bite Share</a>
+      <nav class="hidden md:flex space-x-8">
+        <a href="/" class="hover:text-gray-600 transition">Home</a>
+        <a href="/about" class="font-semibold text-black">About Us</a>
+        <a href="/recipes" class="hover:text-gray-600 transition">Recipes</a>
+        <a href="/blog" class="hover:text-gray-600 transition">Blog</a>
+        <a href="/contact" class="hover:text-gray-600 transition">Contact</a>
+      </nav>
+      <button id="mobile-menu-button" class="md:hidden text-black focus:outline-none" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" >
+          <path d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+      <nav class="flex flex-col space-y-2 p-4">
+        <a href="/" class="text-black font-medium hover:text-gray-600">Home</a>
+        <a href="/about" class="text-black font-semibold">About Us</a>
+        <a href="/recipes" class="text-black font-medium hover:text-gray-600">Recipes</a>
+        <a href="/blog" class="text-black font-medium hover:text-gray-600">Blog</a>
+        <a href="/contact" class="text-black font-medium hover:text-gray-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 py-16 max-w-6xl">
+    <h1 class="text-4xl font-bold mb-6 text-center">About Us</h1>
+    <div class="w-24 h-1 bg-black mx-auto mb-12"></div>
+
+    <section class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-semibold mb-4">Our Story</h2>
+        <p class="text-gray-700 mb-6 leading-relaxed">
+          Bite Share was born from a passion for food and community. We believe that food is more than just sustenance — it’s a way to connect, share stories, and celebrate cultures. Our platform brings together home cooks, food lovers, and culinary explorers to share recipes, tips, and food stories that inspire and delight.
+        </p>
+        <p class="text-gray-700 mb-6 leading-relaxed">
+          Whether you’re looking for traditional desi recipes, quick snacks, or sweet treats, Bite Share is your go-to place to discover and share flavors one bite at a time.
+        </p>
+      </div>
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <img src="https://cdn.pixabay.com/photo/2019/06/11/18/56/people-4262033_1280.jpg" alt="Group of diverse people cooking and sharing food together in a bright kitchen" class="w-full h-auto object-cover" />
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-3xl font-semibold mb-4 text-center">Our Mission</h2>
+      <p class="text-gray-700 max-w-3xl mx-auto text-center leading-relaxed mb-8">
+        To build a vibrant community of food lovers who learn, share, and grow together — one delicious bite at a time. We strive to make cooking accessible, fun, and meaningful by sharing authentic recipes, kitchen wisdom, and real food stories from everyday people.
+      </p>
+      <div class="flex flex-wrap justify-center gap-8">
+        <div class="text-center max-w-xs">
+          <img src="https://cdn.pixabay.com/photo/2017/08/06/22/01/chef-2597276_1280.jpg" alt="Chef cooking in a professional kitchen with passion and focus" class="w-full h-48 object-cover rounded-lg shadow-md mb-4" />
+          <h3 class="font-semibold text-lg mb-2">Inspiration</h3>
+          <p class="text-gray-700 leading-relaxed">
+            We inspire food lovers to explore new flavors and cooking techniques.
+          </p>
+        </div>
+        <div class="text-center max-w-xs">
+          <img src="https://cdn.pixabay.com/photo/2016/11/29/03/53/people-1869716_1280.jpg" alt="People sharing food and enjoying a meal together at a table" class="w-full h-48 object-cover rounded-lg shadow-md mb-4" />
+          <h3 class="font-semibold text-lg mb-2">Community</h3>
+          <p class="text-gray-700 leading-relaxed">
+            We foster a supportive community where everyone can share and learn.
+          </p>
+        </div>
+        <div class="text-center max-w-xs">
+          <img src="https://cdn.pixabay.com/photo/2017/05/07/08/56/food-2291908_1280.jpg" alt="Close-up of a delicious traditional dish beautifully plated" class="w-full h-48 object-cover rounded-lg shadow-md mb-4" />
+          <h3 class="font-semibold text-lg mb-2">Authenticity</h3>
+          <p class="text-gray-700 leading-relaxed">
+            We celebrate authentic recipes and real food stories from diverse cultures.
+          </p>
+        </div>
+        <div class="text-center max-w-xs">
+          <img src="https://cdn.pixabay.com/photo/2016/03/27/22/22/woman-1284414_1280.jpg" alt="Woman smiling while cooking in a kitchen" class="w-full h-48 object-cover rounded-lg shadow-md mb-4" />
+          <h3 class="font-semibold text-lg mb-2">Education</h3>
+          <p class="text-gray-700 leading-relaxed">
+            We provide easy-to-follow recipes and cooking tips for all skill levels.
+          </p>
+        </div>
+        <div class="text-center max-w-xs">
+          <img src="https://cdn.pixabay.com/photo/2018/01/15/07/51/food-3082832_1280.jpg" alt="Fresh ingredients and spices on a rustic wooden table" class="w-full h-48 object-cover rounded-lg shadow-md mb-4" />
+          <h3 class="font-semibold text-lg mb-2">Sustainability</h3>
+          <p class="text-gray-700 leading-relaxed">
+            We encourage mindful cooking and sustainable food choices.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16 text-center">
+      <h2 class="text-3xl font-semibold mb-6">Meet Our Team</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-8 max-w-6xl mx-auto">
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <img alt="Portrait of Anjali Mehta, smiling woman with medium skin tone and dark hair, wearing a casual top" class="w-32 h-32 rounded-full object-cover mb-4" src="https://cdn.pixabay.com/photo/2016/03/27/22/22/woman-1284414_1280.jpg" />
+          <h3 class="font-semibold text-lg">Anjali Mehta</h3>
+          <p class="text-gray-600 text-sm">Founder &amp; Food Enthusiast</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <img alt="Portrait of Rajiv Singh, smiling man with medium skin tone and short hair, wearing a casual shirt" class="w-32 h-32 rounded-full object-cover mb-4" src="https://cdn.pixabay.com/photo/2016/11/29/03/53/people-1869716_1280.jpg" />
+          <h3 class="font-semibold text-lg">Rajiv Singh</h3>
+          <p class="text-gray-600 text-sm">Head Chef &amp; Recipe Curator</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <img alt="Portrait of Maya Patel, smiling woman with medium skin tone and long hair, wearing a casual top" class="w-32 h-32 rounded-full object-cover mb-4" src="https://cdn.pixabay.com/photo/2017/08/06/22/01/chef-2597276_1280.jpg" />
+          <h3 class="font-semibold text-lg">Maya Patel</h3>
+          <p class="text-gray-600 text-sm">Community Manager &amp; Food Blogger</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <img alt="Portrait of Arjun Mehta, smiling man with medium skin tone and beard, wearing a casual shirt" class="w-32 h-32 rounded-full object-cover mb-4" src="https://cdn.pixabay.com/photo/2017/01/20/00/30/man-1990346_1280.jpg" />
+          <h3 class="font-semibold text-lg">Arjun Mehta</h3>
+          <p class="text-gray-600 text-sm">Marketing Lead</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+          <img alt="Portrait of Neha Sharma, smiling woman with medium skin tone and curly hair, wearing a casual top" class="w-32 h-32 rounded-full object-cover mb-4" src="https://cdn.pixabay.com/photo/2016/03/27/22/22/woman-1284414_1280.jpg" />
+          <h3 class="font-semibold text-lg">Neha Sharma</h3>
+          <p class="text-gray-600 text-sm">Content Strategist</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-3xl font-semibold mb-6 text-center">Our Values</h2>
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div>
+          <svg class="mx-auto mb-4 w-12 h-12 text-black" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M12 20l9-5-9-5-9 5 9 5z"></path>
+            <path d="M12 12v8"></path>
+            <path d="M12 12L3 7l9-5 9 5-9 5z"></path>
+          </svg>
+          <h3 class="font-semibold text-lg mb-2">Quality</h3>
+          <p class="text-gray-700">We prioritize quality in every recipe and story we share.</p>
+        </div>
+        <div>
+          <svg class="mx-auto mb-4 w-12 h-12 text-black" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <h3 class="font-semibold text-lg mb-2">Timeliness</h3>
+          <p class="text-gray-700">We keep our content fresh and relevant for our community.</p>
+        </div>
+        <div>
+          <svg class="mx-auto mb-4 w-12 h-12 text-black" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" x2="12" y1="15" y2="3"></line>
+          </svg>
+          <h3 class="font-semibold text-lg mb-2">Transparency</h3>
+          <p class="text-gray-700">We believe in honest communication and openness with our community.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16 text-center">
+      <h2 class="text-3xl font-semibold mb-6">Join Our Journey</h2>
+      <p class="max-w-3xl mx-auto text-gray-700 mb-8 leading-relaxed">
+        Whether you’re a home cook, a professional chef, or a food lover, Bite Share welcomes you to be part of our growing family. Share your recipes, stories, and passion for food with us and help us celebrate the joy of cooking and eating together.
+      </p>
+      <a href="/contact" class="inline-block bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition">
+        Contact Us
+      </a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-12 mt-auto">
+    <div class="container mx-auto px-4 text-center text-gray-400">
+      <p>© 2025 Bite Share. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

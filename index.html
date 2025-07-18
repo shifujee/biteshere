@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+        Bite Share - Discover Flavors One Bite at a Time
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#ffffff',
+                        text: '#000000',
+                        background: '#ffffff',
+                        border: '#e5e5e5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        }
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        /* Custom modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Slideshow specific styles */
+        .hero-image {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .hero-image.active {
+            opacity: 1;
+        }
+        .dot {
+            height: 10px;
+            width: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.6s ease;
+        }
+        .dot.active {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-background text-text">
+<!-- Header & Navigation -->
+<header class="relative">
+    <!-- Mobile menu button -->
+    <div class="md:hidden absolute top-4 right-4 z-50">
+        <button aria-label="Toggle menu" class="text-white p-2 focus:outline-none" id="mobile-menu-button">
+            <svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+        </button>
+    </div>
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:block bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a class="text-2xl font-bold" href="#">
+                    Bite Share
+                </a>
+                <ul class="flex space-x-8">
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#home">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#about">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#recipes">
+                            Recipes
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#blog">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#testimonials">
+                            Testimonials
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#share-recipe">
+                            Share Recipe
+                        </a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-600 transition" href="#contact">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Mobile Navigation -->
+    <div class="fixed inset-0 bg-black bg-opacity-90 z-40 hidden flex flex-col justify-center items-center" id="mobile-menu">
+        <ul class="text-center">
+            <li class="py-3">
+                <a class="text-white text-xl" href="#home">
+                    Home
+                </a>
+            </li>
+            <li class="py-3">
+                <a class="text-white text-xl" href="#about">
+                    About Us
+                </a>
+            </li>
+            <li class="py-3">
+                <a class="text-white text-xl" href="#recipes">
+                    Recipes
+                </a>
+            </li>
+            <li class="py-3">
+                <a class="text-white text-xl" href="#blog">
+                    Blog
+                </a>
+            </li>
+            <li class="py-3">
+                <a class="text-white text-xl" href="#testimonials">
+                    Testimonials
+                </a>
+            </li>
+            <li class="py-3">
+                <a class="text-white text-xl" href="#share-recipe">
+                    Share Recipe
+                </a>
+            </li>
+            <li class="py-3">
+                <a class="text-white text-xl" href="#contact">
+                    Contact
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden" id="home">
+    <!-- Slideshow Images -->
+    <img alt="Close-up of a delicious korma dish with rich creamy sauce and garnished with herbs on a rustic plate" class="absolute inset-0 w-full h-full object-cover hero-image active" src="https://cdn.pixabay.com/photo/2018/12/04/16/49/korma-3856046_1280.jpg"/>
+    <img alt="Variety of delicious dishes on a table" class="absolute inset-0 w-full h-full object-cover hero-image" src="https://cdn.pixabay.com/photo/2017/01/26/02/09/food-2009249_1280.jpg"/>
+    <img alt="Delicious dessert with berries and cream" class="absolute inset-0 w-full h-full object-cover hero-image" src="https://cdn.pixabay.com/photo/2017/06/01/18/46/dish-2364024_1280.jpg"/>
+
+    <div class="absolute inset-0 hero-gradient">
+    </div>
+    <div class="container mx-auto px-4 z-10 text-center max-w-4xl">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+            Bite Share
+        </h1>
+        <p class="text-xl md:text-2xl text-white mb-8">
+            Discover a world of flavors — one bite at a time. From quick recipes to traditional desi meals, street food cravings to modern kitchen hacks — Bite Share is your food buddy, your recipe partner, and your taste explorer. Let's cook, share, and celebrate food together.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a class="bg-white text-black py-3 px-8 rounded-full font-medium hover:bg-gray-100 transition" href="#recipes">
+                Explore Recipes
+            </a>
+            <a class="bg-transparent border-2 border-white text-white py-3 px-8 rounded-full font-medium hover:bg-white hover:bg-opacity-10 transition" href="#subscribe">
+                Subscribe
+            </a>
+        </div>
+    </div>
+    <!-- Slideshow Dots -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex" id="slideshow-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+    </div>
+</section>
+<!-- About Us Section -->
+<section class="py-16 bg-gray-50" id="about">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                About Us
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h3 class="text-2xl font-bold mb-4">
+                    Why Bite Share?
+                </h3>
+                <p class="text-gray-700 mb-6">
+                    <span class="about-us-short">Bite Share was created with a simple idea — food is meant to be shared. Whether you're a home chef, a street food explorer, or someone who just loves a good biryani, this space is for you. We bring together recipes, kitchen wisdom, and real food stories from everyday people.</span><span class="about-us-full hidden"> Our platform is designed to be a vibrant community where food enthusiasts can connect, discover new culinary delights, and share their own unique cooking experiences. We believe that every meal has a story, and we're here to help you tell yours. Join us on this delicious journey!</span>
+                    <button class="text-black font-medium hover:underline mt-2 read-more-toggle" data-target="about-us">Read More</button>
+                </p>
+                <h3 class="text-2xl font-bold mb-4">
+                    Our Mission:
+                </h3>
+                <p class="text-gray-700">
+                    To build a community of food lovers who learn, share, and grow together — one delicious bite at a time.
+                </p>
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-xl">
+                <img alt="Two people cooking together in a kitchen, chopping vegetables and smiling" class="w-full h-auto" src="https://cdn.pixabay.com/photo/2021/02/24/15/21/cook-6046729_1280.jpg"/>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Recipes Section -->
+<section class="py-16" id="recipes">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Our Recipes
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+            <p class="text-gray-700 max-w-3xl mx-auto">
+                Explore our collection of delicious recipes from quick meals to traditional favorites.
+            </p>
+        </div>
+        <!-- Recipe Categories -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+            <div class="text-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+                <h3 class="font-medium">
+                    Desi Delights
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Biryani, Nihari, Karahi
+                </p>
+            </div>
+            <div class="text-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+                <h3 class="font-medium">
+                    Street Snacks
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Chaat, Gol Gappay, Bun Kebab
+                </p>
+            </div>
+            <div class="text-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+                <h3 class="font-medium">
+                    Sweet Cravings
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Gulab Jamun, Cakes, Kheer
+                </p>
+            </div>
+            <div class="text-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+                <h3 class="font-medium">
+                    Quick Bites
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Sandwiches, Wraps, Paratha Rolls
+                </p>
+            </div>
+            <div class="text-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+                <h3 class="font-medium">
+                    Kids Corner
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Fun and nutritious recipes
+                </p>
+            </div>
+            <div class="text-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition">
+                <h3 class="font-medium">
+                    Healthy Nibbles
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Nutritious and delicious options
+                </p>
+            </div>
+        </div>
+        <!-- Featured Recipes -->
+        <h3 class="text-2xl font-bold mb-6">
+            Featured Recipes
+        </h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="featured-recipes-container">
+            <!-- Recipes will be loaded here from Firestore -->
+            <p class="text-center text-gray-600 col-span-full" id="loading-recipes">Loading recipes...</p>
+        </div>
+        <div class="text-center mt-10">
+            <a class="inline-block border-2 border-black py-3 px-8 rounded-full font-medium hover:bg-black hover:text-white transition" href="#">
+                View All Recipes
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Blog Section -->
+<section class="py-16 bg-gray-50" id="blog">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Food Stories
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+            <p class="text-gray-700 max-w-3xl mx-auto">
+                Explore our latest food adventures, cooking tips, and culinary journeys.
+            </p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog Post 1 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md">
+                <img alt="Various spices and ingredients on a wooden table" class="w-full h-48 object-cover" src="https://cdn.pixabay.com/photo/2016/12/10/21/26/food-1898194_1280.jpg"/>
+                <div class="p-6">
+                    <div class="flex items-center mb-2 text-gray-500 text-sm">
+                        <time datetime="2025-05-15">
+                            May 15, 2025
+                        </time>
+                        <span class="mx-2 text-gray-300">
+                            |
+                        </span>
+                        <span>
+                            Cooking Tips
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">
+                        Essential Spices Every Kitchen Needs
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        <span class="blog-post-1-short">Discover the must-have spices that can transform your cooking and elevate everyday dishes.</span><span class="blog-post-1-full hidden"> From the warmth of cinnamon to the zing of turmeric, these essential spices are the secret to unlocking incredible flavors. Learn how to store them properly and when to add them for maximum impact in your recipes.</span>
+                        <button class="text-black font-medium hover:underline mt-2 read-more-toggle" data-target="blog-post-1">Read More</button>
+                    </p>
+                    <a class="text-black font-medium hover:underline" href="#">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            <!-- Blog Post 2 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md">
+                <img alt="Fresh vegetables and herbs on a kitchen counter" class="w-full h-48 object-cover" src="https://cdn.pixabay.com/photo/2015/07/31/12/07/soup-greens-869075_1280.jpg"/>
+                <div class="p-6">
+                    <div class="flex items-center mb-2 text-gray-500 text-sm">
+                        <time datetime="2025-05-10">
+                            May 10, 2025
+                        </time>
+                        <span class="mx-2 text-gray-300">
+                            |
+                        </span>
+                        <span>
+                            Food Culture
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">
+                        The Art of Vegetable Cutting Techniques
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Learn professional vegetable cutting techniques that will speed up your prep and beautify your dishes.
+                    </p>
+                    <a class="text-black font-medium hover:underline" href="#">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            <!-- Blog Post 3 -->
+            <article class="bg-white rounded-lg overflow-hidden shadow-md">
+                <img alt="Baking ingredients and tools on a wooden table" class="w-full h-48 object-cover" src="https://cdn.pixabay.com/photo/2015/08/25/03/50/egg-906135_1280.jpg"/>
+                <div class="p-6">
+                    <div class="flex items-center mb-2 text-gray-500 text-sm">
+                        <time datetime="2025-05-05">
+                            May 5, 2025
+                        </time>
+                        <span class="mx-2 text-gray-300">
+                            |
+                        </span>
+                        <span>
+                            Baking
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">
+                        Baking Science: Understanding Ingredients
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Explore the science behind baking ingredients and how they work together to create perfect results.
+                    </p>
+                    <a class="text-black font-medium hover:underline" href="#">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+        </div>
+        <div class="text-center mt-10">
+            <a class="inline-block border-2 border-black py-3 px-8 rounded-full font-medium hover:bg-black hover:text-white transition" href="#">
+                View All Stories
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-16" id="testimonials">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                What Our Community Says
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <blockquote class="bg-white p-8 rounded-lg shadow-md flex flex-col items-center text-center">
+                <svg aria-hidden="true" class="w-12 h-12 text-gray-300 mb-4" fill="currentColor" viewbox="0 0 24 24">
+                    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path>
+                </svg>
+                <p class="text-gray-700 mb-6 max-w-md">
+                    Bite Share has completely transformed my cooking! The recipes are easy to follow and always turn out delicious. I've learned so many new techniques.
+                </p>
+                <footer class="text-center">
+                    <h4 class="font-bold">
+                        Priya Sharma
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        Home Cook
+                    </p>
+                </footer>
+            </blockquote>
+            <!-- Testimonial 2 -->
+            <blockquote class="bg-white p-8 rounded-lg shadow-md flex flex-col items-center text-center">
+                <svg aria-hidden="true" class="w-12 h-12 text-gray-300 mb-4" fill="currentColor" viewbox="0 0 24 24">
+                    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path>
+                </svg>
+                <p class="text-gray-700 mb-6 max-w-md">
+                    As a professional chef, I appreciate the authentic recipes shared here. The community is so supportive and the tips from fellow food lovers are invaluable!
+                </p>
+                <footer class="text-center">
+                    <h4 class="font-bold">
+                        Rahul Kapoor
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        Professional Chef
+                    </p>
+                </footer>
+            </blockquote>
+            <!-- Testimonial 3 -->
+            <blockquote class="bg-white p-8 rounded-lg shadow-md flex flex-col items-center text-center">
+                <svg aria-hidden="true" class="w-12 h-12 text-gray-300 mb-4" fill="currentColor" viewbox="0 0 24 24">
+                    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"></path>
+                </svg>
+                <p class="text-gray-700 mb-6 max-w-md">
+                    I love how Bite Share celebrates food from all cultures. The stories behind each recipe make cooking so much more meaningful and connected.
+                </p>
+                <footer class="text-center">
+                    <h4 class="font-bold">
+                        Maya Patel
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        Food Blogger
+                    </p>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+</section>
+<!-- Share Your Recipe Section -->
+<section class="py-16 bg-gray-50" id="share-recipe">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Share Your Recipe
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+            <p class="text-gray-700 max-w-3xl mx-auto">
+                Have a delicious recipe you'd like to share with the Bite Share community? Fill out the form below!
+            </p>
+        </div>
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <form id="recipe-submission-form" novalidate="">
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="recipe-name">
+                        Recipe Name
+                    </label>
+                    <input class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="recipe-name" name="recipe-name" required="" type="text"/>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="recipe-category">
+                        Cuisine/Category
+                    </label>
+                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="recipe-category" name="recipe-category" required="">
+                        <option value="">
+                            Select a category
+                        </option>
+                        <option value="Desi Delights">
+                            Desi Delights
+                        </option>
+                        <option value="Street Snacks">
+                            Street Snacks
+                        </option>
+                        <option value="Sweet Cravings">
+                            Sweet Cravings
+                        </option>
+                        <option value="Quick Bites">
+                            Quick Bites
+                        </option>
+                        <option value="Kids Corner">
+                            Kids Corner
+                        </option>
+                        <option value="Healthy Nibbles">
+                            Healthy Nibbles
+                        </option>
+                        <option value="Other">
+                            Other
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="recipe-ingredients">
+                        Ingredients (one per line)
+                    </label>
+                    <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="recipe-ingredients" name="recipe-ingredients" required="" rows="8"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="recipe-instructions">
+                        Instructions (steps)
+                    </label>
+                    <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="recipe-instructions" name="recipe-instructions" required="" rows="10"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="recipe-image-prompt">
+                        Describe your recipe image (e.g., "A delicious chicken biryani served in a clay pot")
+                    </label>
+                    <input class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="recipe-image-prompt" name="recipe-image-prompt" type="text"/>
+                </div>
+                <button class="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition w-full" type="submit">
+                    Submit Recipe
+                </button>
+                <div class="mt-4 text-center text-sm" id="form-status-message"></div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Subscribe Section -->
+<section class="py-16" id="subscribe">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Join Our Foodie Community
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+            <p class="text-gray-700 mb-8">
+                Subscribe to our newsletter to receive the latest recipes, cooking tips, and food stories directly in your inbox.
+            </p>
+            <form class="max-w-lg mx-auto" novalidate="">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input aria-label="Email address" class="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-black" placeholder="Your email address" required="" type="email"/>
+                    <button class="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition" type="submit">
+                        Subscribe
+                    </button>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">
+                    We respect your privacy. No spam, ever.
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Contact Section -->
+<section class="py-16 bg-gray-50" id="contact">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Get In Touch
+            </h2>
+            <div class="w-24 h-1 bg-black mx-auto mb-8">
+            </div>
+            <p class="text-gray-700 max-w-3xl mx-auto">
+                Got a recipe to share or want to collaborate? We'd love to hear from you!
+            </p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <form class="space-y-6" novalidate="">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1" for="name">
+                            Name
+                        </label>
+                        <input class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="name" name="name" required="" type="text"/>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1" for="email">
+                            Email
+                        </label>
+                        <input class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="email" name="email" required="" type="email"/>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="subject">
+                        Subject
+                    </label>
+                    <input class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="subject" name="subject" required="" type="text"/>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="message">
+                        Message
+                    </label>
+                    <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" id="message" name="message" required="" rows="5"></textarea>
+                </div>
+                <button class="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition" type="submit">
+                    Send Message
+                </button>
+            </form>
+            <aside class="bg-gray-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-bold mb-6">
+                    Contact Information
+                </h3>
+                <div class="mb-6">
+                    <h4 class="font-bold mb-2">
+                        Email
+                    </h4>
+                    <p class="text-gray-700">
+                        hello@biteshare.com
+                    </p>
+                </div>
+                <div class="mb-6">
+                    <h4 class="font-bold mb-2">
+                        Follow Us
+                    </h4>
+                    <div class="flex space-x-4">
+                        <a aria-label="Instagram" class="text-gray-700 hover:text-black" href="#">
+                            <img alt="Instagram icon" height="24" src="https://storage.googleapis.com/a1aa/image/bb698f61-0ee2-4772-94cf-3e9efed13594.jpg" width="24"/>
+                        </a>
+                        <a aria-label="Facebook" class="text-gray-700 hover:text-black" href="#">
+                            <img alt="Facebook icon" height="24" src="https://storage.googleapis.com/a1aa/image/7e3a95ac-8f38-4199-14b8-105575d61657.jpg" width="24"/>
+                        </a>
+                        <a aria-label="YouTube" class="text-gray-700 hover:text-black" href="#">
+                            <img alt="YouTube icon" height="24" src="https://storage.googleapis.com/a1aa/image/7965280e-dac0-42c0-9cb3-28cca7be5d5f.jpg" width="24"/>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-2">
+                        Share Your Recipes
+                    </h4>
+                    <p class="text-gray-700 mb-4">
+                        Have a unique recipe to share with our community? We'd love to feature it!
+                    </p>
+                    <a class="text-black font-medium hover:underline" href="#share-recipe">
+                        Learn how to submit →
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<!-- Success/Error Modal -->
+<div id="statusModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close-button" id="closeModalButton">&times;</span>
+        <p id="modalMessage" class="text-lg font-semibold"></p>
+        <button id="modalOkButton" class="mt-4 bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">OK</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">
+                    Bite Share
+                </h3>
+                <p class="text-gray-400">
+                    Discover a world of flavors, one bite at a time.
+                </p>
+                <div class="mt-4 flex space-x-4">
+                    <a aria-label="Instagram" class="text-gray-400 hover:text-white" href="#">
+                        <img alt="Instagram icon" height="20" src="https://storage.googleapis.com/a1aa/image/bb698f61-0ee2-4772-94cf-3e9efed13594.jpg" width="20"/>
+                    </a>
+                    <a aria-label="Facebook" class="text-gray-400 hover:text-white" href="#">
+                        <img alt="Facebook icon" height="20" src="https://storage.googleapis.com/a1aa/image/7e3a95ac-8f38-4199-14b8-105575d61657.jpg" width="20"/>
+                    </a>
+                    <a aria-label="YouTube" class="text-gray-400 hover:text-white" href="#">
+                        <img alt="YouTube icon" height="20" src="https://storage.googleapis.com/a1aa/image/7965280e-dac0-42c0-9cb3-28cca7be5d5f.jpg" width="20"/>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">
+                    Quick Links
+                </h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#home">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#about">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#recipes">
+                            Recipes
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#blog">
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#contact">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">
+                    Recipe Categories
+                </h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#">
+                            Desi Delights
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#">
+                            Street Snacks
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#">
+                            Sweet Cravings
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#">
+                            Quick Bites
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#">
+                            Kids Corner
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-gray-400 hover:text-white" href="#">
+                            Healthy Nibbles
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4">
+                    Newsletter
+                </h4>
+                <p class="text-gray-400 mb-4">
+                    Subscribe to get the latest recipes and updates.
+                </p>
+                <form>
+                    <div class="flex">
+                        <input aria-label="Newsletter email" class="px-4 py-2 w-full text-black rounded-l-lg focus:outline-none" placeholder="Your email" type="email"/>
+                        <button aria-label="Subscribe to newsletter" class="bg-white text-black px-4 py-2 rounded-r-lg hover:bg-gray-200 transition" type="submit">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>
+                © 2025 Bite Share. All rights reserved.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script type="module">
+    // // Firebase SDK imports
+    // import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    // import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    // import { getFirestore, doc, addDoc, onSnapshot, collection, query, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // // Global Firebase variables
+    // let app;
+    // let db;
+    // let auth;
+    // let userId;
+    // let isAuthReady = false;
+
+    // // Get references to DOM elements
+    // const featuredRecipesContainer = document.getElementById('featured-recipes-container');
+    // const loadingRecipesMessage = document.getElementById('loading-recipes');
+    // const recipeSubmissionForm = document.getElementById('recipe-submission-form');
+    // const formStatusMessage = document.getElementById('form-status-message');
+    // const userIdDisplay = document.getElementById('user-id-display');
+
+    // // Modal elements
+    // const statusModal = document.getElementById('statusModal');
+    // const modalMessage = document.getElementById('modalMessage');
+    // const closeModalButton = document.getElementById('closeModalButton');
+    // const modalOkButton = document.getElementById('modalOkButton');
+
+    // // Slideshow elements
+    // const heroImages = document.querySelectorAll('.hero-image');
+    // const slideshowDotsContainer = document.getElementById('slideshow-dots');
+    // let currentImageIndex = 0;
+    // let slideshowInterval;
+
+    // // Function to show the custom modal
+    // function showModal(message, isError = false) {
+    //     modalMessage.textContent = message;
+    //     if (isError) {
+    //         modalMessage.classList.remove('text-green-600');
+    //         modalMessage.classList.add('text-red-600');
+    //     } else {
+    //         modalMessage.classList.remove('text-red-600');
+    //         modalMessage.classList.add('text-green-600');
+    //     }
+    //     statusModal.classList.remove('hidden');
+    //     statusModal.classList.add('flex'); // Use flex to center the modal
+    // }
+
+    // // Function to hide the custom modal
+    // function hideModal() {
+    //     statusModal.classList.add('hidden');
+    //     statusModal.classList.remove('flex');
+    // }
+
+    // // Event listeners for modal buttons
+    // closeModalButton.addEventListener('click', hideModal);
+    // modalOkButton.addEventListener('click', hideModal);
+    // window.addEventListener('click', (event) => {
+    //     if (event.target == statusModal) {
+    //         hideModal();
+    //     }
+    // });
+
+    // // Initialize Firebase and authenticate
+    // async function initializeFirebase() {
+    //     try {
+    //         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+    //         app = initializeApp(firebaseConfig);
+    //         db = getFirestore(app);
+    //         auth = getAuth(app);
+
+    //         onAuthStateChanged(auth, async (user) => {
+    //             if (user) {
+    //                 userId = user.uid;
+    //                 userIdDisplay.textContent = userId;
+    //                 isAuthReady = true;
+    //                 console.log("Firebase authenticated. User ID:", userId);
+    //                 fetchRecipes(); // Fetch recipes once authenticated
+    //             } else {
+    //                 // Sign in anonymously if no user is found
+    //                 try {
+    //                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+    //                         await signInWithCustomToken(auth, __initial_auth_token);
+    //                     } else {
+    //                         await signInAnonymously(auth);
+    //                     }
+    //                 } catch (error) {
+    //                     console.error("Firebase authentication failed:", error);
+    //                     userIdDisplay.textContent = "Authentication failed";
+    //                     showModal("Failed to authenticate with Firebase. Please try again later.", true);
+    //                 }
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error("Firebase initialization failed:", error);
+    //         userIdDisplay.textContent = "Initialization failed";
+    //         showModal("Failed to initialize Firebase. Please try again later.", true);
+    //     }
+    // }
+
+    // // Function to generate image using Imagen API
+    // async function generateImage(prompt) {
+    //     const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
+    //     const apiKey = ""; // Canvas will automatically provide the API key
+    //     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+    //     try {
+    //         const response = await fetch(apiUrl, {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify(payload)
+    //         });
+    //         const result = await response.json();
+
+    //         if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+    //             return `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+    //         } else {
+    //             console.error("Image generation failed: No image data received.", result);
+    //             return `https://placehold.co/400x224/cccccc/333333?text=No+Image`; // Placeholder on failure
+    //         }
+    //     } catch (error) {
+    //         console.error("Error generating image:", error);
+    //         return `https://placehold.co/400x224/cccccc/333333?text=Image+Error`; // Placeholder on error
+    //     }
+    // }
+
+    // // Function to render recipes
+    // async function renderRecipes(recipes) {
+    //     featuredRecipesContainer.innerHTML = ''; // Clear existing recipes
+    //     loadingRecipesMessage.classList.add('hidden'); // Hide loading message
+
+    //     if (recipes.length === 0) {
+    //         featuredRecipesContainer.innerHTML = '<p class="text-center text-gray-600 col-span-full">No recipes found. Be the first to share one!</p>';
+    //         return;
+    //     }
+
+    //     for (const recipe of recipes) {
+    //         let imageUrl = recipe.imageUrl || `https://placehold.co/400x224/cccccc/333333?text=Recipe+Image`;
+
+    //         // If image prompt exists and no image URL, try to generate it
+    //         if (recipe.imagePrompt && !recipe.imageUrl) {
+    //             imageUrl = await generateImage(recipe.imagePrompt);
+    //             // Update Firestore with the generated image URL to avoid regenerating every time
+    //             try {
+    //                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    //                 const recipeRef = doc(db, `artifacts/${appId}/public/data/recipes`, recipe.id);
+    //                 await updateDoc(recipeRef, { imageUrl: imageUrl });
+    //             } catch (updateError) {
+    //                 console.error("Error updating recipe with generated image URL:", updateError);
+    //             }
+    //         }
+
+    //         const recipeCard = `
+                <article class="recipe-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
+                    <img alt="${recipe.recipeName}" class="w-full h-56 object-cover" src="${imageUrl}"/>
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">${recipe.category || 'General'}</span>
+                        <h4 class="text-xl font-bold mb-2">${recipe.recipeName}</h4>
+                        <div class="flex items-center mb-4 text-gray-500 text-sm">
+                            <span class="mr-4 flex items-center">
+                                <svg aria-hidden="true" class="w-4 h-4 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" fill-rule="evenodd"></path>
+                                </svg>
+                                ${recipe.prepTime || 'N/A'}
+                            </span>
+                            <span class="flex items-center">
+                                <svg aria-hidden="true" class="w-4 h-4 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                                </svg>
+                                Serves ${recipe.servings || 'N/A'}
+                            </span>
+                        </div>
+                        <p class="text-gray-700 mb-4">${recipe.description || ''}</p>
+                        <a class="inline-block bg-black text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-gray-800 transition" href="#">
+                            View Recipe
+                        </a>
+                    </div>
+                </article>
+            `;
+            featuredRecipesContainer.insertAdjacentHTML('beforeend', recipeCard);
+        }
+    }
+
+    // Function to fetch recipes from Firestore
+    function fetchRecipes() {
+        if (!db || !isAuthReady) {
+            console.log("Firestore not ready or user not authenticated yet.");
+            return;
+        }
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        onSnapshot(recipesCollectionRef, (snapshot) => {
+            const recipes = [];
+            snapshot.forEach(doc => {
+                recipes.push({ id: doc.id, ...doc.data() });
+            });
+            renderRecipes(recipes);
+        }, (error) => {
+            console.error("Error fetching recipes:", error);
+            loadingRecipesMessage.textContent = "Failed to load recipes.";
+            showModal("Failed to load recipes. Please check your internet connection.", true);
+        });
+    }
+
+    // Handle recipe submission form
+    recipeSubmissionForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!db || !isAuthReady) {
+            showModal("Firebase not ready. Please wait for authentication to complete.", true);
+            return;
+        }
+
+        const recipeName = document.getElementById('recipe-name').value;
+        const recipeCategory = document.getElementById('recipe-category').value;
+        const recipeIngredients = document.getElementById('recipe-ingredients').value.split('\n').filter(line => line.trim() !== '');
+        const recipeInstructions = document.getElementById('recipe-instructions').value.split('\n').filter(line => line.trim() !== '');
+        const recipeImagePrompt = document.getElementById('recipe-image-prompt').value;
+
+        if (!recipeName || !recipeCategory || recipeIngredients.length === 0 || recipeInstructions.length === 0) {
+            showModal("Please fill in all required fields (Recipe Name, Category, Ingredients, Instructions).", true);
+            return;
+        }
+
+        formStatusMessage.innerHTML = '<span class="text-blue-600">Submitting recipe... Please wait, this may take a moment.</span>';
+        formStatusMessage.classList.remove('hidden');
+
+        try {
+            const prompt = `Please provide a structured JSON response for the following recipe:\n\nRecipe Name: ${recipeName}\nCategory: ${recipeCategory}\nIngredients:\n${recipeIngredients.join('\n')}\nInstructions:\n${recipeInstructions.join('\n')}\n\nAlso, provide a short description (max 20 words) and estimated prep time (e.g., "30 mins") and servings (e.g., "4"). If an image prompt is provided, include it as 'imagePrompt'.`;
+
+            const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = {
+                contents: chatHistory,
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "recipeName": { "type": "STRING" },
+                            "category": { "type": "STRING" },
+                            "ingredients": { "type": "ARRAY", "items": { "type": "STRING" } },
+                            "instructions": { "type": "ARRAY", "items": { "type": "STRING" } },
+                            "description": { "type": "STRING" },
+                            "prepTime": { "type": "STRING" },
+                            "servings": { "type": "STRING" },
+                            "imagePrompt": { "type": "STRING" }
+                        },
+                        "propertyOrdering": ["recipeName", "category", "ingredients", "instructions", "description", "prepTime", "servings", "imagePrompt"]
+                    }
+                }
+            };
+
+            const apiKey = ""; // Canvas will automatically provide the API key
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                const jsonText = result.candidates[0].content.parts[0].text;
+                const parsedRecipe = JSON.parse(jsonText);
+
+                // Add timestamp and user ID
+                parsedRecipe.timestamp = serverTimestamp();
+                parsedRecipe.submittedBy = userId;
+                parsedRecipe.imagePrompt = recipeImagePrompt; // Ensure the user's image prompt is saved
+
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                await addDoc(collection(db, `artifacts/${appId}/public/data/recipes`), parsedRecipe);
+
+                formStatusMessage.innerHTML = '<span class="text-green-600">Recipe submitted successfully!</span>';
+                showModal("Your recipe has been submitted successfully!", false);
+                recipeSubmissionForm.reset(); // Clear form
+            } else {
+                console.error("Gemini API response structure unexpected:", result);
+                formStatusMessage.innerHTML = '<span class="text-red-600">Failed to process recipe. Unexpected API response.</span>';
+                showModal("Failed to process your recipe. Please try again.", true);
+            }
+        } catch (error) {
+            console.error("Error submitting recipe:", error);
+            formStatusMessage.innerHTML = '<span class="text-red-600">An error occurred while submitting your recipe.</span>';
+            showModal("An error occurred while submitting your recipe. Please try again.", true);
+        }
+    });
+
+    // Slideshow functions
+    function showImage(index) {
+        heroImages.forEach((img, i) => {
+            img.classList.remove('active');
+            if (slideshowDotsContainer.children[i]) {
+                slideshowDotsContainer.children[i].classList.remove('active');
+            }
+        });
+        heroImages[index].classList.add('active');
+        if (slideshowDotsContainer.children[index]) {
+            slideshowDotsContainer.children[index].classList.add('active');
+        }
+    }
+
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+        showImage(currentImageIndex);
+    }
+
+    function startSlideshow() {
+        // Clear any existing interval to prevent multiple slideshows
+        if (slideshowInterval) {
+            clearInterval(slideshowInterval);
+        }
+        slideshowInterval = setInterval(nextImage, 5000); // Change image every 5 seconds
+    }
+
+    // Add event listeners to dots for manual navigation
+    slideshowDotsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('dot')) {
+            const index = parseInt(e.target.dataset.index);
+            currentImageIndex = index;
+            showImage(currentImageIndex);
+            // Reset interval when user manually changes image
+            startSlideshow();
+        }
+    });
+
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            // Only attempt to query if targetId is not just '#'
+            if (targetId && targetId !== '#') {
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for fixed header
+                        behavior: 'smooth',
+                    });
+                }
+            }
+        });
+    });
+
+    // Read More/Show Less functionality
+    document.querySelectorAll('.read-more-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const target = this.dataset.target;
+            const shortText = document.querySelector(`.${target}-short`);
+            const fullText = document.querySelector(`.${target}-full`);
+
+            if (fullText.classList.contains('hidden')) {
+                shortText.classList.add('hidden');
+                fullText.classList.remove('hidden');
+                this.textContent = 'Show Less';
+            } else {
+                shortText.classList.remove('hidden');
+                fullText.classList.add('hidden');
+                this.textContent = 'Read More';
+            }
+        });
+    });
+
+    // Initialize Firebase and start slideshow when the window loads
+    window.onload = () => {
+        initializeFirebase();
+        showImage(currentImageIndex); // Show the first image initially
+        startSlideshow(); // Start the automatic slideshow
+    };
+</script>
+</body>
+</html>
